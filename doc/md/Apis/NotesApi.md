@@ -1,6 +1,6 @@
 # NotesApi
 
-All URIs are relative to *https://firebase.com*
+All URIs are relative to *https://notes-1ed6c.web.app*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------

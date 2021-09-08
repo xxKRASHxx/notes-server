@@ -1,12 +1,11 @@
 # notes-server
 Simple backend for notes list based on NodeJS; Firebase functions
 
-# Initialisation
-- `brew bundle`
-- `nvm use`
+# Init
+- `brew bundle` to install brew dependencies
+- `nvm use` to ensure if version of NodeJS is correct (install if needed)
 
-This will install specific version of _NodeJS_ and _Yarn_ what are being used for this app and dependencies.
+## [**API Documentation**](doc/md/README.md)
+Currently hosted by Firebase.
 
-# API Documentation
-
-# [**API Documentation**](doc/md/README.md)
+## [**Licence**](LICENSE)

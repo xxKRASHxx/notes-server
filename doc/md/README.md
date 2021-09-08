@@ -3,7 +3,7 @@
 <a name="documentation-for-api-endpoints"></a>
 ## Documentation for API Endpoints
 
-All URIs are relative to *https://firebase.com*
+All URIs are relative to *https://notes-1ed6c.web.app*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------

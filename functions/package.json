@@ -2,11 +2,11 @@
   "name": "functions",
   "scripts": {
     "build": "tsc",
-    "serve": "yarn build && firebase emulators:start --only functions",
-    "shell": "yarn build && firebase functions:shell",
+    "serve": "yarn build && yarn firebase emulators:start --only functions",
+    "shell": "yarn build && yarn firebase functions:shell",
     "start": "yarn shell",
-    "deploy": "firebase deploy --only functions",
-    "logs": "firebase functions:log"
+    "deploy": "yarn firebase deploy --only functions",
+    "logs": "yarn firebase functions:log"
   },
   "engines": {
     "node": "14"
@@ -18,8 +18,9 @@
   },
   "devDependencies": {
     "firebase-functions-test": "^0.2.0",
-    "typescript": "^3.8.0",
-    "tsc": "^2.0.3"
+    "firebase-tools": "^9.17.0",
+    "tsc": "^2.0.3",
+    "typescript": "^3.8.0"
   },
   "private": true
 }

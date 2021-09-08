@@ -1,0 +1,274 @@
+openapi: 3.0.0
+info:
+  version: 1.0.0
+  title: Notes
+  description: "This is a sample Notes server used for education :) \n You can view, create and delete a note. \n Firebase auth must be used to obtain Bearer header."
+
+servers:
+ - url: https://notes-1ed6c.web.app
+
+components:
+
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+  schemas:
+  
+    credentials:
+      type: object
+      required:
+        - email
+        - password
+      properties:
+        email:
+          type: string
+          format: email
+          example: example@mail.com
+        password:
+          type: string
+          
+    jwt:
+      type: object
+      required:
+        - jwt
+      properties:
+        jwt:
+          type: string
+
+    user:
+      type: object
+      required:
+        - id
+        - email
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        email:
+          type: string
+          format: email
+        name:
+          type: string
+
+    note:
+      type: object
+      required:
+        - id
+        - title
+        - subtitle
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        title:
+          type: string
+        subtitle:
+          type: string
+
+    error:
+      type: object
+      properties:
+        code:
+          type: integer
+        description:
+          type: string
+
+  responses:
+    '400':
+      description: A bad request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    '401':
+      description: Access token is missing or invalid
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    '404':
+      description: Not Found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+    '500':
+      description: An internal error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/error'
+
+  parameters:
+    limit:
+      name: limit
+      in: query
+      description: Limits the number of items on a page
+      schema:
+        type: integer
+    offset:
+      name: offset
+      in: query
+      description: Specifies the page number to be displayed
+      schema:
+        type: integer
+
+security:
+  - bearerAuth: []
+
+paths:
+
+  /users/signup:
+    post:
+      tags:
+        - User
+      operationId: signup
+      description: Creates a new user
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/user'
+                - $ref: '#/components/schemas/credentials'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/user'
+                  - $ref: '#/components/schemas/jwt'
+        '400':
+          $ref: '#/components/responses/400'
+        '500':
+          $ref: '#/components/responses/500'
+
+  /users/signin:
+    post:
+      tags:
+        - User
+      operationId: signin
+      description: Authenticates user and returns JWT token.
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/credentials'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                allOf:
+                - $ref: '#/components/schemas/user'
+                - $ref: '#/components/schemas/jwt'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '500':
+          $ref: '#/components/responses/500'
+
+  /users/me:
+    get:
+      tags:
+        - User
+      operationId: currentUser
+      description: Returns current user
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/user'
+        '401':
+          $ref: '#/components/responses/401'
+        '500':
+          $ref: '#/components/responses/500'
+
+  /notes:
+    get:
+      tags:
+        - notes
+      operationId: notesList
+      description: List of all notes
+      # parameters:
+        #      - $ref: '#/components/parameters/limit'
+        #      - $ref: '#/components/parameters/offset'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/note'
+        '400':
+          $ref: '#/components/responses/400'
+        '404':
+          $ref: '#/components/responses/404'
+        '500':
+          $ref: '#/components/responses/500'
+    put:
+      tags:
+        - notes
+      operationId: createNote
+      description: Creates a new note
+      requestBody:
+        description: Optional description in *Markdown*
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/note'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/note'
+        '400':
+          $ref: '#/components/responses/400'
+        '404':
+          $ref: '#/components/responses/404'
+        '500':
+          $ref: '#/components/responses/500'
+
+  /notes/{id}:
+    get:
+      tags:
+        - notes
+      operationId: getNoteByID
+      description: Get particular note
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/note'
+        '400':
+          $ref: '#/components/responses/400'
+        '404':
+          $ref: '#/components/responses/404'
+        '500':
+          $ref: '#/components/responses/500'

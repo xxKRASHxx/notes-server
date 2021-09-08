@@ -6,3 +6,7 @@ Simple backend for notes list based on NodeJS; Firebase functions
 - `nvm use`
 
 This will install specific version of _NodeJS_ and _Yarn_ what are being used for this app and dependencies.
+
+# API Documentation
+
+# [**API Documentation**](doc/md/README.md)

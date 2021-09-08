@@ -28,10 +28,18 @@ jobs:
     - name: Install Brew dependencies
       run: brew bundle
 
-    - name: Install Global Yarn dependencies
+    - name: Enable Yarn cache of root directory
+      uses: c-hive/gha-yarn-cache@v2
+
+    - name: Install root Yarn dependencies
       run: yarn install
 
-    - name: Install Functions Yarn dependencies
+    - name: Enable Yarn cache of functions directory
+      uses: c-hive/gha-yarn-cache@v2
+      with:
+        directory: ${{env.working-directory}}
+
+    - name: Install functions Yarn dependencies
       run: yarn install
       working-directory: ${{env.working-directory}}
 

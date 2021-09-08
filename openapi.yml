@@ -5,7 +5,7 @@ info:
   description: "This is a sample Notes server used for education :) \n You can view, create and delete a note. \n Firebase auth must be used to obtain Bearer header."
 
 servers:
- - url: https://notes-1ed6c.web.app/
+ - url: https://notes-1ed6c.web.app/api
 
 components:
 

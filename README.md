@@ -9,3 +9,6 @@ Simple backend for notes list based on NodeJS; Firebase functions
 Currently hosted by Firebase.
 
 ## [**Licence**](LICENSE)
+
+MIT License
+Copyright (c) 2021 Danil Lisovoy

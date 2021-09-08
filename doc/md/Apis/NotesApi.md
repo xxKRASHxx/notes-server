@@ -1,6 +1,6 @@
 # NotesApi
 
-All URIs are relative to *https://notes-1ed6c.web.app*
+All URIs are relative to *https://notes-1ed6c.web.app/api*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------

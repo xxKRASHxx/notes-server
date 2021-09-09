@@ -2,6 +2,8 @@
   "name": "functions",
   "scripts": {
     "build": "tsc",
+    "watch": "tsc-watch --onSuccess \"yarn inspect\"",
+    "inspect": "node --inspect=0.0.0.0:9221 ./lib/index.js",
     "serve": "yarn build && yarn firebase emulators:start --only functions",
     "shell": "yarn build && yarn firebase functions:shell",
     "start": "yarn shell",
@@ -13,13 +15,19 @@
   },
   "main": "lib/index.js",
   "dependencies": {
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "firebase": "^9.0.1",
     "firebase-admin": "^9.8.0",
     "firebase-functions": "^3.14.1"
   },
   "devDependencies": {
+    "@types/cors": "^2.8.12",
     "firebase-functions-test": "^0.2.0",
     "firebase-tools": "^9.17.0",
     "tsc": "^2.0.3",
+    "tsc-watch": "^4.5.0",
     "typescript": "^3.8.0"
   },
   "private": true

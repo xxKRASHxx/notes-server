@@ -6,6 +6,7 @@ info:
 
 servers:
  - url: https://notes-1ed6c.web.app/api
+ - url: http://localhost:5000/api/
 
 components:
 
@@ -73,7 +74,7 @@ components:
       properties:
         code:
           type: integer
-        description:
+        message:
           type: string
 
   responses:

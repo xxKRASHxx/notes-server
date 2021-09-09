@@ -1,55 +1,55 @@
 import { Request, Response } from 'express'
 import * as admin from 'firebase-admin'
-import { getAuth, signInWithEmailAndPassword } from 'firebase/auth'
+import { getAuth, signInWithEmailAndPassword, signInWithCustomToken } from 'firebase/auth'
 
 export async function create(req: Request, res: Response) {
-   try {
-       const { name, password, email } = req.body
+    try {
+        const { name, password, email } = req.body
 
-       if (!password || !email) {
-           return res.status(400).send({ message: 'Missing fields' })
-       }
+        if (!password || !email) {
+            return res.status(400).send({ message: 'Missing fields' })
+        }
 
-       const user = await admin.auth().createUser({
-           displayName: name,
-           password,
-           email
-       })
+        const user = await admin.auth().createUser({
+            displayName: name,
+            password,
+            email
+        })
 
-       await admin.auth().setCustomUserClaims(user.uid, { role: 'user' })
-       const token = await admin.auth().createCustomToken(user.uid)
-       
-       return res.status(201).send({ token, ...mapUser(user) })
-   } catch (err) {
-       return res.status(500).send(err)
-   }
+        await admin.auth().setCustomUserClaims(user.uid, { role: 'user' })
+        const token = await admin.auth().createCustomToken(user.uid)
+        const credentials = await signInWithCustomToken(getAuth(), token)
+        const idToken = await credentials.user.getIdToken()
+
+        return res.status(201).send({ jwt: idToken, ...mapUser(user) })
+    } catch (err) {
+        return res.status(500).send(err)
+    }
 }
 
 export async function sign(req: Request, res: Response) {
     try {
         const { password, email } = req.body
-
-        const auth = getAuth();
-
-        await signInWithEmailAndPassword(auth, email, password);
+        
         const user = await admin.auth().getUserByEmail(email)
-        const token = await admin.auth().createCustomToken(user.uid)
+        const credentials = await signInWithEmailAndPassword(getAuth(), email, password)
+        const idToken = await credentials.user.getIdToken()
 
-        return res.status(201).send({ token, ...mapUser(user) })
+        return res.status(201).send({ jwt: idToken, ...mapUser(user) })
     } catch (err) {
         return res.status(500).send(err)
     }
- }
+}
 
- export async function get(req: Request, res: Response) {
+export async function get(req: Request, res: Response) {
     try {
-        const { id } = req.params
+        const { id } = res.locals
         const user = await admin.auth().getUser(id)
         return res.status(200).send({ user: mapUser(user) })
     } catch (err) {
         return res.status(500).send(err)
     }
- }
+}
 
 function mapUser(user: admin.auth.UserRecord) {
     return {

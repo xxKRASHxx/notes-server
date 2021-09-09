@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "emulate": "export $(cat .env | xargs) && yarn firebase emulators:start --inspect-functions 9229"
+    "emulate": "yarn firebase emulators:start --inspect-functions 9229"
   },
   "dependencies": {
     "firebase-functions": "^3.15.5",

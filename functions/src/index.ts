@@ -4,7 +4,8 @@ import * as user from 'firebase/app'
 import { getAuth, connectAuthEmulator } from "firebase/auth";
 import firebaseConfig from './firebase-config'
 
-import onApiRequest from './api';
+import handleApiRequest from './api'
+// import handleCreateUser from './auth'
 
 admin.initializeApp()
 user.initializeApp(firebaseConfig)
@@ -22,4 +23,6 @@ export const helloWorld = functions.https.onRequest((_request, response) => {
     response.send("Hello from Firebase!");
 });
 
-export const api = functions.https.onRequest(onApiRequest);
+export const api = functions.https.onRequest(handleApiRequest)
+
+// export const didAuthUser = functions.auth.user().onCreate(handleCreateUser)

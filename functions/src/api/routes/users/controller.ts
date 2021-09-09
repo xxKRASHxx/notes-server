@@ -41,7 +41,7 @@ export async function sign(req: Request, res: Response) {
     }
 }
 
-export async function get(req: Request, res: Response) {
+export async function get(_req: Request, res: Response) {
     try {
         const { id } = res.locals
         const user = await admin.auth().getUser(id)

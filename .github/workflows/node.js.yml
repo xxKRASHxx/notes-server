@@ -20,17 +20,20 @@ jobs:
         node-version: [14.x]
         
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout
+        uses: actions/checkout@v2
       
       - name: Enable Yarn cache
         uses: c-hive/gha-yarn-cache@v2
         with:
           directory: ${{env.working-directory}}
       
-      - uses: borales/actions-yarn@v2.3.0
+      - name: Install
+        uses: borales/actions-yarn@v2.3.0
         with:
           cmd: --cwd functions install
 
-      - uses: borales/actions-yarn@v2.3.0
+      - name: Build
+        uses: borales/actions-yarn@v2.3.0
         with:
           cmd: --cwd functions build

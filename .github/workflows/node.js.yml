@@ -30,9 +30,9 @@ jobs:
       - uses: borales/actions-yarn@v2.3.0
         with:
           cmd: install
-          directory: ${{env.working-directory}}
+          entryPoint: ${{env.working-directory}}
           
       - uses: borales/actions-yarn@v2.3.0
         with:
           cmd: build
-          directory: ${{env.working-directory}}
+          entryPoint: ${{env.working-directory}}

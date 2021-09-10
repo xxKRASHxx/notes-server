@@ -1,6 +1,6 @@
 import { Request, Response } from 'express'
 import * as admin from 'firebase-admin'
-import { getAuth, signInWithEmailAndPassword, signInWithCustomToken } from 'firebase/auth'
+import { getAuth, signInWithEmailAndPassword } from 'firebase/auth'
 
 export async function create(req: Request, res: Response) {
     try {
@@ -17,8 +17,7 @@ export async function create(req: Request, res: Response) {
         })
 
         await admin.auth().setCustomUserClaims(user.uid, { role: 'user' })
-        const token = await admin.auth().createCustomToken(user.uid)
-        const credentials = await signInWithCustomToken(getAuth(), token)
+        const credentials = await signInWithEmailAndPassword(getAuth(), email, password)
         const idToken = await credentials.user.getIdToken()
 
         return res.status(201).send({ jwt: idToken, ...mapUser(user) })

@@ -3,7 +3,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | [**Integer**](integer.md) |  | [default to null]
+**id** | [**String**](string.md) |  | [default to null]
 **email** | [**String**](string.md) |  | [default to null]
 **name** | [**String**](string.md) |  | [optional] [default to null]
 

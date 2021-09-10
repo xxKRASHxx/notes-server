@@ -3,7 +3,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | [**Integer**](integer.md) |  | [default to null]
+**id** | [**String**](string.md) |  | [default to null]
 **title** | [**String**](string.md) |  | [default to null]
 **subtitle** | [**String**](string.md) |  | [default to null]
 

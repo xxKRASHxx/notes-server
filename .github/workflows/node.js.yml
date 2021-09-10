@@ -22,17 +22,15 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       
-      - name: Enable Yarn cache of functions directory
+      - name: Enable Yarn cache
         uses: c-hive/gha-yarn-cache@v2
         with:
           directory: ${{env.working-directory}}
       
       - uses: borales/actions-yarn@v2.3.0
         with:
-          cmd: install
-          entryPoint: ${{env.working-directory}}
-          
+          cmd: --cwd functions install
+
       - uses: borales/actions-yarn@v2.3.0
         with:
-          cmd: build
-          entryPoint: ${{env.working-directory}}
+          cmd: --cwd functions build

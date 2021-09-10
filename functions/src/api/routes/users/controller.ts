@@ -44,7 +44,7 @@ export async function get(_req: Request, res: Response) {
     try {
         const { id } = res.locals
         const user = await admin.auth().getUser(id)
-        return res.status(200).send({ user: mapUser(user) })
+        return res.status(200).send(mapUser(user))
     } catch (err) {
         return res.status(500).send(err)
     }

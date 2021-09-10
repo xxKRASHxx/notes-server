@@ -46,7 +46,7 @@ components:
         - email
       properties:
         id:
-          type: integer
+          type: string
           readOnly: true
         email:
           type: string
@@ -62,7 +62,7 @@ components:
         - subtitle
       properties:
         id:
-          type: integer
+          type: string
           readOnly: true
         title:
           type: string
@@ -73,7 +73,7 @@ components:
       type: object
       properties:
         code:
-          type: integer
+          type: string
         message:
           type: string
 

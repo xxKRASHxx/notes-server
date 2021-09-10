@@ -1,0 +1,39 @@
+# This workflow will do a clean install of node dependencies, cache/restore them, build the source code and run tests across different versions of node
+# For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
+
+name: CI
+
+on:
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    name: Build
+        
+    runs-on: ubuntu-latest
+    env:
+      working-directory: ./functions
+
+    strategy:
+      matrix:
+        node-version: [14.x]
+        
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      
+      - name: Enable Yarn cache
+        uses: c-hive/gha-yarn-cache@v2
+        with:
+          directory: ${{env.working-directory}}
+      
+      - name: Install
+        uses: borales/actions-yarn@v2.3.0
+        with:
+          cmd: --cwd functions install
+
+      - name: Build
+        uses: borales/actions-yarn@v2.3.0
+        with:
+          cmd: --cwd functions build

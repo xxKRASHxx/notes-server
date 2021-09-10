@@ -18,11 +18,6 @@ if (process.env.FIREBASE_AUTH_EMULATOR_HOST) {
     connectAuthEmulator(getAuth(), `http://${process.env.FIREBASE_AUTH_EMULATOR_HOST}`)
 }
 
-export const helloWorld = functions.https.onRequest((_request, response) => {
-    functions.logger.info("Hello logs!", { structuredData: true });
-    response.send("Hello from Firebase!");
-});
-
 export const api = functions.https.onRequest(handleApiRequest)
 
 // export const didAuthUser = functions.auth.user().onCreate(handleCreateUser)

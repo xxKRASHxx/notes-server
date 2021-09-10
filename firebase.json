@@ -16,10 +16,6 @@
         "function": "api"
       },
       {
-        "source": "/test",
-        "function": "helloWorld"
-      },
-      {
         "source": "**",
         "destination": "/404.html"
       }

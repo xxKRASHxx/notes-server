@@ -22,10 +22,11 @@
     "firebase": "^9.0.1",
     "firebase-admin": "^9.8.0",
     "firebase-functions": "^3.14.1",
-    "uuidv4": "^6.2.12"
+    "uuid": "^8.3.2"
   },
   "devDependencies": {
     "@types/cors": "^2.8.12",
+    "@types/uuid": "^8.3.1",
     "firebase-functions-test": "^0.2.0",
     "firebase-tools": "^9.17.0",
     "tsc": "^2.0.3",

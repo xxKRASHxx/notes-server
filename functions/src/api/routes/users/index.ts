@@ -12,7 +12,7 @@ export function routesConfig(app: Application) {
     ]);
     app.get('/api/users/me', [
         isAuthenticated,
-        isAuthorized({ hasRole: ['admin', 'manager', 'user'], allowSameUser: true }),
+        isAuthorized({ hasRole: ['admin', 'manager', 'user'] }),
         get
     ]);
 }

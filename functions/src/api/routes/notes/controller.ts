@@ -1,14 +1,14 @@
 import { Request, Response } from 'express'
 import * as admin from 'firebase-admin'
-import { uuid } from 'uuidv4';
+import { v4 } from 'uuid';
 
 export async function create(req: Request, res: Response) {
     try {
 
         const db = admin.firestore();
 
-        const noteId = uuid()
-        const { creator } = res.locals
+        const noteId = v4()
+        const { id: creator } = res.locals
         const { title, subtitle } = req.body
 
         if (!title || !subtitle) {
@@ -27,6 +27,7 @@ export async function create(req: Request, res: Response) {
         return res.status(201).send(mapNote(note))
 
     } catch (err) {
+        console.error(err)
         return res.status(500).send(err)
     }
 }
@@ -54,9 +55,10 @@ export async function get(req: Request, res: Response) {
         if (!['admin', 'manager'].includes(role) && note.creator != userId)
             return res.status(403).send({ code: 403, message: `You don't have acces to note with id: ${noteId}` })
 
-        return res.status(201).send(mapNote(note))
+        return res.status(200).send(mapNote(note))
 
     } catch (err) {
+        console.error(err)
         return res.status(500).send(err)
     }
 }
@@ -71,9 +73,10 @@ export async function getList(req: Request, res: Response) {
             .where('creator', '==', userId)
             .get()
 
-        return res.status(201).send(response.docs.map((doc) => doc.data()).map(mapNote))
+        return res.status(200).send(response.docs.map((doc) => doc.data()).map(mapNote))
 
     } catch (err) {
+        console.error(err)
         return res.status(500).send(err)
     }
 }

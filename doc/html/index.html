@@ -881,11 +881,16 @@ ul.nav-tabs {
   }
 };
     defs["note"] = {
-  "required" : [ "id", "subtitle", "title" ],
+  "required" : [ "date", "id", "subtitle", "title" ],
   "type" : "object",
   "properties" : {
     "id" : {
       "type" : "string",
+      "readOnly" : true
+    },
+    "date" : {
+      "type" : "string",
+      "format" : "date-time",
       "readOnly" : true
     },
     "title" : {
@@ -1611,7 +1616,7 @@ public class NotesApiExample {
         
         // Create an instance of the API class
         NotesApi apiInstance = new NotesApi();
-        Integer id = 56; // Integer | 
+        String id = id_example; // String | 
         
         try {
             note result = apiInstance.getNoteByID(id);
@@ -1631,7 +1636,7 @@ public class NotesApiExample {
 public class NotesApiExample {
     public static void main(String[] args) {
         NotesApi apiInstance = new NotesApi();
-        Integer id = 56; // Integer | 
+        String id = id_example; // String | 
         
         try {
             note result = apiInstance.getNoteByID(id);
@@ -1655,7 +1660,7 @@ public class NotesApiExample {
 
 // Create an instance of the API class
 NotesApi *apiInstance = [[NotesApi alloc] init];
-Integer *id = 56; //  (default to null)
+String *id = id_example; //  (default to null)
 
 [apiInstance getNoteByIDWith:id
               completionHandler: ^(note output, NSError* error) {
@@ -1679,7 +1684,7 @@ bearerAuth.accessToken = "YOUR ACCESS TOKEN";
 
 // Create an instance of the API class
 var api = new Notes.NotesApi()
-var id = 56; // {Integer} 
+var id = id_example; // {String} 
 
 var callback = function(error, data, response) {
   if (error) {
@@ -1713,7 +1718,7 @@ namespace Example
             
             // Create an instance of the API class
             var apiInstance = new NotesApi();
-            var id = 56;  // Integer |  (default to null)
+            var id = id_example;  // String |  (default to null)
 
             try {
                 note result = apiInstance.getNoteByID(id);
@@ -1736,7 +1741,7 @@ OpenAPITools\Client\Configuration::getDefaultConfiguration()->setAccessToken('',
 
 // Create an instance of the API class
 $api_instance = new OpenAPITools\Client\Api\NotesApi();
-$id = 56; // Integer | 
+$id = id_example; // String | 
 
 try {
     $result = $api_instance->getNoteByID($id);
@@ -1757,7 +1762,7 @@ $WWW::OPenAPIClient::Configuration::access_token = 'YOUR_ACCESS_TOKEN';
 
 # Create an instance of the API class
 my $api_instance = WWW::OPenAPIClient::NotesApi->new();
-my $id = 56; # Integer | 
+my $id = id_example; # String | 
 
 eval { 
     my $result = $api_instance->getNoteByID(id => $id);
@@ -1780,7 +1785,7 @@ openapi_client.configuration.access_token = 'YOUR_ACCESS_TOKEN'
 
 # Create an instance of the API class
 api_instance = openapi_client.NotesApi()
-id = 56 # Integer |  (default to null)
+id = id_example # String |  (default to null)
 
 try: 
     api_response = api_instance.get_note_by_id(id)
@@ -1793,7 +1798,7 @@ except ApiException as e:
                               <pre class="prettyprint"><code class="language-rust">extern crate NotesApi;
 
 pub fn main() {
-    let id = 56; // Integer
+    let id = id_example; // String
 
     let mut context = NotesApi::Context::default();
     let result = client.getNoteByID(id, &context).wait();
@@ -1825,7 +1830,7 @@ pub fn main() {
         <div class="json-schema-view">
             <div class="primitive">
                 <span class="type">
-                    Integer
+                    String
                 </span>
 
             </div>

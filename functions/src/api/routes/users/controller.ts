@@ -22,7 +22,12 @@ export async function create(req: Request, res: Response) {
 
         return res.status(201).send({ jwt: idToken, ...mapUser(user) })
     } catch (err) {
-        return res.status(500).send(err)
+        return res.status(500).send(
+            {
+                code: '500',
+                message: JSON.stringify(err)
+            }
+        )
     }
 }
 
@@ -36,7 +41,12 @@ export async function sign(req: Request, res: Response) {
 
         return res.status(201).send({ jwt: idToken, ...mapUser(user) })
     } catch (err) {
-        return res.status(500).send(err)
+        return res.status(500).send(
+            {
+                code: '500',
+                message: JSON.stringify(err)
+            }
+        )
     }
 }
 
@@ -46,7 +56,12 @@ export async function get(_req: Request, res: Response) {
         const user = await admin.auth().getUser(id)
         return res.status(200).send(mapUser(user))
     } catch (err) {
-        return res.status(500).send(err)
+        return res.status(500).send(
+            {
+                code: '500',
+                message: JSON.stringify(err)
+            }
+        )
     }
 }
 

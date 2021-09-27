@@ -60,9 +60,14 @@ components:
         - id
         - title
         - subtitle
+        - date
       properties:
         id:
           type: string
+          readOnly: true
+        date:
+          type: string
+          format: date-time
           readOnly: true
         title:
           type: string

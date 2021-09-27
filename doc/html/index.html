@@ -881,11 +881,16 @@ ul.nav-tabs {
   }
 };
     defs["note"] = {
-  "required" : [ "id", "subtitle", "title" ],
+  "required" : [ "date", "id", "subtitle", "title" ],
   "type" : "object",
   "properties" : {
     "id" : {
       "type" : "string",
+      "readOnly" : true
+    },
+    "date" : {
+      "type" : "string",
+      "format" : "date-time",
       "readOnly" : true
     },
     "title" : {

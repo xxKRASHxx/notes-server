@@ -8,13 +8,13 @@ export async function isAuthenticated(req: Request, res: Response, next: Functio
 
     if (!authorization || !authorization.startsWith('Bearer')) {
         console.assert('Not Authenticated')
-        return res.status(401).send({ message: 'Unauthorized' })
+        return res.status(401).send({ code: '401', message: 'Unauthorized' })
     }
 
     const split = authorization.split('Bearer ')
     if (split.length !== 2) {
         console.assert('Not Authenticated')
-        return res.status(401).send({ message: 'Unauthorized' });
+        return res.status(401).send({ code: '401', message: 'Unauthorized' });
     }
     const token = split[1]
 
@@ -26,6 +26,6 @@ export async function isAuthenticated(req: Request, res: Response, next: Functio
     }
     catch (err) {
         console.error(`Not Authenticated: ${err}`)
-        return res.status(401).send({ message: 'Unauthorized' });
+        return res.status(401).send({ code: '401', message: 'Unauthorized' });
     }
 }

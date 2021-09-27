@@ -206,7 +206,7 @@ paths:
   /notes:
     get:
       tags:
-        - notes
+        - Notes
       operationId: notesList
       description: List of all notes
       # parameters:
@@ -229,7 +229,7 @@ paths:
           $ref: '#/components/responses/500'
     put:
       tags:
-        - notes
+        - Notes
       operationId: createNote
       description: Creates a new note
       requestBody:
@@ -256,7 +256,7 @@ paths:
   /notes/{id}:
     get:
       tags:
-        - notes
+        - Notes
       operationId: getNoteByID
       description: Get particular note
       parameters:
@@ -264,7 +264,7 @@ paths:
           in: path
           required: true
           schema:
-            type: integer
+            type: string
       responses:
         '200':
           description: OK

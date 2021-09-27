@@ -12,7 +12,7 @@ export async function create(req: Request, res: Response) {
         const { title, subtitle } = req.body
 
         if (!title || !subtitle) {
-            return res.status(400).send({ message: 'Missing fields' })
+            return res.status(401).send({ code: '401', message: 'Missing fields' })
         }
 
         const raw = {
@@ -22,9 +22,9 @@ export async function create(req: Request, res: Response) {
         };
 
         const note = { id: noteId, ...raw }
-        await db.collection('notes').doc(noteId).set(note);
-
-        return res.status(201).send(mapNote(note))
+        const result = await db.collection('notes').doc(noteId).set(note);
+        
+        return res.status(201).send(mapNote({ ...note, date: result.writeTime }))
 
     } catch (err) {
         console.error(err)
@@ -50,12 +50,12 @@ export async function get(req: Request, res: Response) {
         const note = response.docs[0]?.data()
 
         if (!note)
-            return res.status(404).send({ code: 404, message: `Note with id: ${noteId} not found` })
+            return res.status(404).send({ code: '404', message: `Note with id: ${noteId} not found` })
 
         if (!['admin', 'manager'].includes(role) && note.creator != userId)
-            return res.status(403).send({ code: 403, message: `You don't have acces to note with id: ${noteId}` })
+            return res.status(403).send({ code: '403', message: `You don't have acces to note with id: ${noteId}` })
 
-        return res.status(200).send(mapNote(note))
+        return res.status(200).send(mapNote( { ...note, date: response.docs[0].updateTime } ))
 
     } catch (err) {
         console.error(err)
@@ -63,7 +63,7 @@ export async function get(req: Request, res: Response) {
     }
 }
 
-export async function getList(req: Request, res: Response) {
+export async function getList(_req: Request, res: Response) {
     try {
 
         const db = admin.firestore();
@@ -73,7 +73,9 @@ export async function getList(req: Request, res: Response) {
             .where('creator', '==', userId)
             .get()
 
-        return res.status(200).send(response.docs.map((doc) => doc.data()).map(mapNote))
+        return res.status(200).send(response.docs.map((doc) => {
+            return { ...doc.data(), date: doc.updateTime }
+        }).map(mapNote))
 
     } catch (err) {
         console.error(err)
@@ -86,5 +88,6 @@ function mapNote(note: any) {
         id: note.id,
         title: note.title,
         subtitle: note.subtitle,
+        date: note.date.toDate()
     }
 }

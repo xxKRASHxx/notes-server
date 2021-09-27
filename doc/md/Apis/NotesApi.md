@@ -48,7 +48,7 @@ Name | Type | Description  | Notes
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **Integer**|  | [default to null]
+ **id** | **String**|  | [default to null]
 
 ### Return type
 
